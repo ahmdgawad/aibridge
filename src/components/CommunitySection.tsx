@@ -10,7 +10,7 @@ const CommunitySection: React.FC = () => {
           Join our community of developers with a passion for AI and machine learning and get the latest updates, news, and more.
         </p>
         <button style={{ padding: '0.8rem 1.5rem', backgroundColor: '#5865F2', /* Discord color */ color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px' }}>
-          Join Discord >
+          Join Discord {">"}
         </button>
       </div>
       <div>
