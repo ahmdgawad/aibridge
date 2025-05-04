@@ -11,8 +11,8 @@ const HeroSection: React.FC = () => {
           AIBridge offers cheap, scalable, and production-ready AI models. It is free to use and easy to integrate.
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-          <button style={{ padding: '0.8rem 1.5rem', backgroundColor: '#8A2BE2', color: 'white', border: 'none', cursor: 'pointer' }}>Get Started ></button>
-          <button style={{ padding: '0.8rem 1.5rem', backgroundColor: 'transparent', color: 'white', border: '1px solid white', cursor: 'pointer' }}>Documentation</button>
+          <button style={{ padding: '0.8rem 1.5rem', backgroundColor: '#8A2BE2', color: 'white', border: 'none', cursor: 'pointer' }}>{">"}Get Started {">"}</button>
+          <button style={{ padding: '0.8rem 1.5rem', backgroundColor: 'transparent', color: 'white', border: '1px solid white', cursor: 'pointer' }}{">"}Documentation</button>
         </div>
       </div>
       <div style={{ maxWidth: '45%', backgroundColor: '#222', padding: '1rem', borderRadius: '8px', fontFamily: 'monospace', color: '#0f0' }}>
