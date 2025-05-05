@@ -1,11 +1,17 @@
-# GitHub Actions workflow for building and deploying the AIBridge React app
+# GitHub Actions workflow for building and deploying the AIBridge React app to GitHub Pages
 
-name: Deploy AIBridge App
+name: Deploy AIBridge App to GitHub Pages
 
 on:
   push:
     branches:
       - master # Or 'main' depending on your default branch
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -30,31 +36,19 @@ jobs:
         run: pnpm install
 
       - name: Build application
+        # The base path was set to '.' in vite.config.ts for relative asset paths
         run: pnpm run build
 
-      - name: Deploy to Server (Placeholder - Requires Configuration)
-        # This step is a placeholder. You need to replace it with your actual deployment method.
-        # Example using SCP (Secure Copy Protocol) via SSH:
-        # Requires secrets: SSH_PRIVATE_KEY, SERVER_USER, SERVER_HOST, TARGET_PATH
-        # Configure these secrets in your GitHub repository settings: Settings > Secrets and variables > Actions
-        run: |
-          echo "Deploying build output..."
-          # Example using rsync:
-          # mkdir -p ~/.ssh
-          # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          # chmod 600 ~/.ssh/id_rsa
-          # ssh-keyscan ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-          # rsync -avz --delete ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.TARGET_PATH }}/aibridge/
-          echo "Deployment step needs to be configured with your server details and secrets."
-          echo "Target path should be the webroot for ahmdgawad.zapto.org/aibridge/"
-          echo "Please replace this placeholder with your actual deployment script (e.g., using scp, rsync, ftp)."
-        # Example using a dedicated deployment action (like appleboy/scp-action or appleboy/ssh-action):
-        # uses: appleboy/scp-action@master
-        # with:
-        #   host: ${{ secrets.SERVER_HOST }}
-        #   username: ${{ secrets.SERVER_USER }}
-        #   key: ${{ secrets.SSH_PRIVATE_KEY }}
-        #   port: 22 # Default is 22
-        #   source: "dist/*"
-        #   target: "${{ secrets.TARGET_PATH }}/aibridge/"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the 'dist' directory (Vite's default build output folder)
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
